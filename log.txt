@@ -17,3 +17,28 @@
 [2025-03-22 01:39:00] File "test/s.txt" read successfully.
 [2025-03-22 01:39:22] File "test/s.txt" deleted successfully.
 [2025-03-22 01:39:28] Directory "test" deleted successfully.
+[2025-03-22 14:13:33] Directory "a" created successfully.
+[2025-03-22 14:14:01] File "a.txt" created successfully.
+[2025-03-22 14:14:09] File "a.txt" read successfully.
+[2025-03-22 14:14:35] Listed contents of directory "a".
+[2025-03-22 14:14:48] File "a/a.txt" created successfully.
+[2025-03-22 14:14:55] File "a/b.png" created successfully.
+[2025-03-22 14:15:04] File "a/c.txt" created successfully.
+[2025-03-22 14:15:12] File "a/b.png" read successfully.
+[2025-03-22 14:15:42] Listed contents of directory "a".
+[2025-03-22 14:15:56] Directory "a/b" created successfully.
+[2025-03-22 14:16:05] Directory "a/b/c" created successfully.
+[2025-03-22 14:16:14] File "a/b/f.pdf" created successfully.
+[2025-03-22 14:16:16] Listed contents of directory "a".
+[2025-03-22 14:16:28] Listed contents of directory "a/b".
+[2025-03-22 14:16:51] Listed files with extension ".txt" in directory "a".
+[2025-03-22 14:17:41] Listed files with extension ".pdf" in directory "a".
+[2025-03-22 14:32:10] File "a.txt" read successfully.
+[2025-03-22 14:34:40] File "test_lock.txt" created successfully.
+[2025-03-22 14:34:43] Content appended to file "test_lock.txt" successfully.
+[2025-03-22 14:34:51] File "test_lock.txt" read successfully.
+[2025-03-22 14:36:07] Content appended to file "test_lock.txt" successfully.
+[2025-03-22 14:36:15] File "test_lock.txt" read successfully.
+[2025-03-22 14:40:18] File "test_lock.txt" read successfully.
+[2025-03-22 14:40:28] Content appended to file "test_lock.txt" successfully.
+[2025-03-22 14:41:34] Content appended to file "test_lock.txt" successfully.
