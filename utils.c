@@ -79,7 +79,7 @@ int directory_exists(const char *dirname) {
 }
 
 /**
- * Custom string formatting function to avoid stdio.h dependency
+ * Custom string formatting function to avoid standard input&output dependency
  * Only supports a limited set of format specifiers: %s, %d
  * 
  * @param buffer Output buffer

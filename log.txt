@@ -1,2 +1,35 @@
-[2025-03-22 16:11:06] Listed contents of directory "a".
-[2025-03-22 16:11:54] ERROR: Directory "a" already exists.
+[2025-03-22 16:15:34] Directory "test_demo" created successfully.
+[2025-03-22 16:15:41] ERROR: Directory "test_demo" already exists.
+[2025-03-22 16:15:57] File "test_demo/file1.txt" created successfully.
+[2025-03-22 16:16:44] File "test_demo/file2.txt" created successfully.
+[2025-03-22 16:16:58] File "test_demo/report.pdf" created successfully.
+[2025-03-22 16:17:04] ERROR: File "test_demo/file1.txt" already exists.
+[2025-03-22 16:17:11] Listed contents of directory "test_demo".
+[2025-03-22 16:17:53] Listed files with extension ".txt" in directory "test_demo".
+[2025-03-22 16:18:04] Listed files with extension ".pdf" in directory "test_demo".
+[2025-03-22 16:18:07] Listed files with extension ".doc" in directory "test_demo".
+[2025-03-22 16:18:35] Content appended to file "test_demo/file1.txt".
+[2025-03-22 16:18:42] Content appended to file "test_demo/file1.txt".
+[2025-03-22 16:18:46] File "test_demo/file1.txt" read successfully.
+[2025-03-22 16:19:00] ERROR: File "test_demo/nonexistent.txt" does not exist
+[2025-03-22 16:21:38] Directory "testDir" created successfully.
+[2025-03-22 16:22:03] File "testDir/example.txt" created successfully.
+[2025-03-22 16:22:18] Content appended to file "testDir/example.txt".
+[2025-03-22 16:22:59] File "testDir/example.txt" read successfully.
+[2025-03-22 16:23:23] Content appended to file "testDir/example.txt".
+[2025-03-22 16:23:39] Listed contents of directory "testDir".
+[2025-03-22 16:24:07] File "testDir/example.txt" deleted successfully.
+[2025-03-22 16:24:20] Directory "testDir" deleted successfully.
+[2025-03-22 16:41:11] ERROR: File "test.txt" already exists.
+[2025-03-22 16:42:48] Directory "test_dir" created successfully.
+[2025-03-22 16:42:49] File "test_dir/file.txt" created successfully.
+[2025-03-22 16:42:49] Content appended to file "test_dir/file.txt".
+[2025-03-22 16:42:50] File "test_dir/file.txt" read successfully.
+[2025-03-22 16:42:51] File "test_dir/file.txt" deleted successfully.
+[2025-03-22 16:42:51] Directory "test_dir" deleted successfully.
+[2025-03-22 16:47:57] File "example.txt" created successfully.
+[2025-03-22 16:48:09] File "example.txt" read successfully.
+[2025-03-22 16:48:51] Content appended to file "example.txt".
+[2025-03-22 16:49:02] Content appended to file "example.txt".
+[2025-03-22 16:49:25] File "example.txt" read successfully.
+[2025-03-22 16:50:02] File "a/b/f.pdf" deleted successfully.
