@@ -1,7 +1,2 @@
-[2025-03-22 15:48:29] Directory "q" created successfully.
-[2025-03-22 15:48:38] Directory "q" deleted successfully.
-[2025-03-22 15:50:16] File "a.txt" created successfully.
-[2025-03-22 15:50:27] File "a.txt" read successfully.
-[2025-03-22 15:50:37] Content appended to file "a.txt".
-[2025-03-22 15:50:39] File "a.txt" read successfully.
-[2025-03-22 15:50:48] File "a.txt" deleted successfully.
+[2025-03-22 16:11:06] Listed contents of directory "a".
+[2025-03-22 16:11:54] ERROR: Directory "a" already exists.

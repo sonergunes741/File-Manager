@@ -27,6 +27,13 @@ int create_file(const char *filename) {
         int len = string_format(error_msg, sizeof(error_msg), 
                           "Error: File \"%s\" already exists.\n", filename);
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: File \"%s\" already exists.", filename);
+        log_operation(log_error);
+        
         return -1;
     }
     
@@ -38,6 +45,14 @@ int create_file(const char *filename) {
                           "Error: Could not create file \"%s\": %s\n", 
                           filename, strerror(errno));
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: Could not create file \"%s\": %s", 
+                     filename, strerror(errno));
+        log_operation(log_error);
+        
         return -1;
     }
     
@@ -52,6 +67,14 @@ int create_file(const char *filename) {
                           "Error: Could not write to file \"%s\": %s\n", 
                           filename, strerror(errno));
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: Could not write to file \"%s\": %s", 
+                     filename, strerror(errno));
+        log_operation(log_error);
+        
         close(fd);
         return -1;
     }
@@ -63,6 +86,14 @@ int create_file(const char *filename) {
                           "Error: Could not close file \"%s\": %s\n", 
                           filename, strerror(errno));
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: Could not close file \"%s\": %s", 
+                     filename, strerror(errno));
+        log_operation(log_error);
+        
         return -1;
     }
     
@@ -191,6 +222,13 @@ int append_to_file(const char *filename, const char *content) {
         int len = string_format(error_msg, sizeof(error_msg), 
                          "Error: File \"%s\" does not exist\n", filename);
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: File \"%s\" does not exist", filename);
+        log_operation(log_error);
+        
         return -1;
     }
     
@@ -202,6 +240,14 @@ int append_to_file(const char *filename, const char *content) {
         int len = string_format(error_msg, sizeof(error_msg), 
                          "Error: Could not fork process: %s\n", strerror(errno));
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: Could not fork process for appending to \"%s\": %s", 
+                     filename, strerror(errno));
+        log_operation(log_error);
+        
         return -1;
     }
     else if (pid == 0) {
@@ -215,6 +261,14 @@ int append_to_file(const char *filename, const char *content) {
                              "Error: Could not open file \"%s\": %s\n", 
                              filename, strerror(errno));
             write(STDERR_FILENO, error_msg, len);
+            
+            // Log the error from child process
+            char log_error[256];
+            string_format(log_error, sizeof(log_error), 
+                         "ERROR: Could not open file \"%s\" for append: %s", 
+                         filename, strerror(errno));
+            log_operation(log_error);
+            
             _exit(EXIT_FAILURE);
         }
         
@@ -227,6 +281,14 @@ int append_to_file(const char *filename, const char *content) {
                                  "Error: Cannot write to \"%s\". File is locked or read-only.\n", 
                                  filename);
                 write(STDERR_FILENO, error_msg, len);
+                
+                // Log the error from child process
+                char log_error[256];
+                string_format(log_error, sizeof(log_error), 
+                             "ERROR: Cannot write to \"%s\". File is locked or read-only.", 
+                             filename);
+                log_operation(log_error);
+                
                 close(fd);
                 _exit(EXIT_FAILURE);
             } else {
@@ -236,6 +298,14 @@ int append_to_file(const char *filename, const char *content) {
                                  "Error: Could not lock file \"%s\": %s\n", 
                                  filename, strerror(errno));
                 write(STDERR_FILENO, error_msg, len);
+                
+                // Log the error
+                char log_error[256];
+                string_format(log_error, sizeof(log_error), 
+                             "ERROR: Could not lock file \"%s\": %s", 
+                             filename, strerror(errno));
+                log_operation(log_error);
+                
                 close(fd);
                 _exit(EXIT_FAILURE);
             }
@@ -278,6 +348,14 @@ int append_to_file(const char *filename, const char *content) {
                              "Error: Could not write to file \"%s\": %s\n", 
                              filename, strerror(errno));
             write(STDERR_FILENO, error_msg, len);
+            
+            // Log the error
+            char log_error[256];
+            string_format(log_error, sizeof(log_error), 
+                         "ERROR: Could not write to file \"%s\": %s", 
+                         filename, strerror(errno));
+            log_operation(log_error);
+            
             _exit(EXIT_FAILURE);
         }
         
@@ -306,6 +384,14 @@ int append_to_file(const char *filename, const char *content) {
             int len = string_format(error_msg, sizeof(error_msg), 
                              "Error: Child process terminated abnormally\n");
             write(STDERR_FILENO, error_msg, len);
+            
+            // Log the error
+            char log_error[256];
+            string_format(log_error, sizeof(log_error), 
+                         "ERROR: Child process for appending to \"%s\" terminated abnormally", 
+                         filename);
+            log_operation(log_error);
+            
             return -1;
         }
     }

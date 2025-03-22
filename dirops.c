@@ -19,13 +19,27 @@
  * @param dirname Name of the directory to create
  * @return 0 on success, -1 on failure
  */
+/**
+ * Create a new directory
+ * 
+ * @param dirname Name of the directory to create
+ * @return 0 on success, -1 on failure
+ */
 int create_directory(const char *dirname) {
     // Check if directory already exists
-    if (directory_exists(dirname)) {
+    struct stat st;
+    if (stat(dirname, &st) == 0 && S_ISDIR(st.st_mode)) {
         char error_msg[256];
         int len = string_format(error_msg, sizeof(error_msg), 
                           "Error: Directory \"%s\" already exists.\n", dirname);
         write(STDERR_FILENO, error_msg, len);
+
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: Directory \"%s\" already exists.", dirname);
+        log_operation(log_error);
+        
         return -1;
     }
     
@@ -36,6 +50,14 @@ int create_directory(const char *dirname) {
                           "Error: Could not create directory \"%s\": %s\n", 
                           dirname, strerror(errno));
         write(STDERR_FILENO, error_msg, len);
+        
+        // Log the error
+        char log_error[256];
+        string_format(log_error, sizeof(log_error), 
+                     "ERROR: Could not create directory \"%s\": %s", 
+                     dirname, strerror(errno));
+        log_operation(log_error);
+        
         return -1;
     }
     
