@@ -1,0 +1,19 @@
+[2025-03-22 01:33:20] Directory "test_valgrind" created successfully.
+[2025-03-22 01:33:25] File "test_valgrind/sample.txt" created successfully.
+[2025-03-22 01:33:35] Content appended to file "test_valgrind/sample.txt" successfully.
+[2025-03-22 01:33:52] File "test_valgrind/sample.txt" read successfully.
+[2025-03-22 01:34:02] Listed contents of directory "test_valgrind".
+[2025-03-22 01:34:26] Listed files with extension ".txt" in directory "test_valgrind".
+[2025-03-22 01:34:56] File "test_valgrind/sample.txt" deleted successfully.
+[2025-03-22 01:35:02] Directory "test_valgrind" deleted successfully.
+[2025-03-22 01:35:42] Listed contents of directory "mehdi".
+[2025-03-22 01:36:14] Listed files with extension ".png" in directory "mehdi".
+[2025-03-22 01:36:51] Directory "subTest" deleted successfully.
+[2025-03-22 01:37:37] File "test/subTest/soner.txt" deleted successfully.
+[2025-03-22 01:38:01] Directory "test/subTest" deleted successfully.
+[2025-03-22 01:38:19] File "test/s.txt" created successfully.
+[2025-03-22 01:38:26] File "test/s.txt" read successfully.
+[2025-03-22 01:38:53] Content appended to file "test/s.txt" successfully.
+[2025-03-22 01:39:00] File "test/s.txt" read successfully.
+[2025-03-22 01:39:22] File "test/s.txt" deleted successfully.
+[2025-03-22 01:39:28] Directory "test" deleted successfully.
