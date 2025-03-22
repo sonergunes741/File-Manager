@@ -14,7 +14,7 @@ int file_exists(const char *filename);
 // Check if a directory exists
 int directory_exists(const char *dirname);
 
-// Custom string formatting function to avoid stdio.h dependency
+// Custom string formatting function to avoid standard input&output dependency
 // Only supports a limited set of format specifiers: %s, %d
 int string_format(char *buffer, size_t size, const char *format, ...);
 
