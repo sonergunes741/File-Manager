@@ -57,18 +57,17 @@ void cleanup_handler(int signum) {
  */
 void display_help(void) {
     const char *help_text = 
-        "Usage: fileManager <command> [arguments]\n"
-        "Commands:\n"
-        "  createDir \"folderName\" - Create a new directory\n"
-        "  createFile \"fileName\" - Create a new file\n"
-        "  listDir \"folderName\" - List all files in a directory\n"
-        "  listFilesByExtension \"folderName\" \".txt\" - List files with specific extension\n"
-        "  readFile \"fileName\" - Read a file's content\n"
-        "  appendToFile \"fileName\" \"new content\" - Append content to a file\n"
-        "  deleteFile \"fileName\" - Delete a file\n"
-        "  deleteDir \"folderName\" - Delete an empty directory\n"
-        "  showLogs - Display operation logs\n"
-        "  exit - Exit the program\n";
+        "Usage: fileManager <command> [arguments]\n\n"
+        "Commands:\n\n"
+        "  createDir \"folderName\" - Create a new directory\n\n"
+        "  createFile \"fileName\" - Create a new file\n\n"
+        "  listDir \"folderName\" - List all files in a directory\n\n"
+        "  listFilesByExtension \"folderName\" \".txt\" - List files with specific extension\n\n"
+        "  readFile \"fileName\" - Read a file's content\n\n"
+        "  appendToFile \"fileName\" \"new content\" - Append content to a file\n\n"
+        "  deleteFile \"fileName\" - Delete a file\n\n"
+        "  deleteDir \"folderName\" - Delete an empty directory\n\n"
+        "  showLogs - Display operation logs\n\n";
     
     write(STDOUT_FILENO, help_text, strlen(help_text));
 }
@@ -270,104 +269,49 @@ int main(int argc, char *argv[]) {
     // Register exit handler to clean up resources
     atexit(exit_handler);
     
-    // If no arguments are provided, run in interactive mode
+    // Initialize logging
+    init_logging();
+    
+    // If no arguments are provided, just show help and exit
     if (argc == 1) {
-        // Initialize logging
-        init_logging();
-        
-        char input[MAX_INPUT_SIZE];
-        char *args[MAX_ARGS] = {NULL}; // Initialize all to NULL
-        int arg_count;
-        int result;
-        
-        // Initial sync with global args
-        sync_args(args);
-        
-        // Display welcome message and help
-        write(STDOUT_FILENO, "Secure File and Directory Management System\n", 43);
-        write(STDOUT_FILENO, "Type 'help' to see available commands\n", 38);
-        
-        int running = 1;
-        while (running) {
-            // Display prompt
-            write(STDOUT_FILENO, "> ", 2);
-            
-            // Read user input
-            ssize_t bytes_read = read(STDIN_FILENO, input, MAX_INPUT_SIZE);
-            if (bytes_read <= 0) {
-                write(STDERR_FILENO, "Error reading input\n", 20);
-                free_args(args); // Clean up before exit
-                sync_args(args);
-                break;
-            }
-            
-            // Ensure null termination
-            input[bytes_read] = '\0';
-            
-            // Parse the command - this frees args internally
-            arg_count = parse_command(input, args);
-            if (arg_count < 0) {
-                write(STDERR_FILENO, "Error parsing command\n", 22);
-                continue; // parse_command already freed memory on error
-            }
-            
-            // Execute the command
-            result = execute_command(args, arg_count);
-            
-            // Handle command result
-            if (result == 1) {
-                running = 0; // Will exit after cleaning up
-            }
-            
-            // Free arguments AFTER each command execution
-            free_args(args);
-            sync_args(args); // Update global args
-        }
-        
-        // Add one more cleanup before exit to be safe
-        free_args(args);
-        sync_args(args);
-        
+        display_help();
         return EXIT_SUCCESS;
     } 
-    else {
-        // Non-interactive mode
-        init_logging();
-        
-        char *args[MAX_ARGS] = {NULL}; // Initialize to NULL
-        sync_args(args);  // Update global args
-        
-        int arg_count = argc - 1;
-        
-        // Check if we have too many arguments
-        if (arg_count > MAX_ARGS) {
-            write(STDERR_FILENO, "Error: Too many arguments\n", 26);
+    
+    // Command-line mode
+    char *args[MAX_ARGS] = {NULL}; // Initialize to NULL
+    sync_args(args);  // Update global args
+    
+    int arg_count = argc - 1;
+    
+    // Check if we have too many arguments
+    if (arg_count > MAX_ARGS) {
+        write(STDERR_FILENO, "Error: Too many arguments\n", 26);
+        return EXIT_FAILURE;
+    }
+    
+    // Copy arguments from argv
+    for (int i = 0; i < arg_count; i++) {
+        args[i] = strdup(argv[i + 1]);
+        if (!args[i]) {
+            write(STDERR_FILENO, "Error: Memory allocation failed\n", 32);
+            
+            // Free already allocated memory
+            free_args(args);
+            sync_args(args);
             return EXIT_FAILURE;
         }
-        
-        // Copy arguments from argv
-        for (int i = 0; i < arg_count; i++) {
-            args[i] = strdup(argv[i + 1]);
-            if (!args[i]) {
-                write(STDERR_FILENO, "Error: Memory allocation failed\n", 32);
-                
-                // Free already allocated memory
-                free_args(args);
-                sync_args(args);
-                return EXIT_FAILURE;
-            }
-        }
-        
-        // Update global args for signal handler
-        sync_args(args);
-        
-        // Execute the command
-        int result = execute_command(args, arg_count);
-        
-        // Free allocated memory
-        free_args(args);
-        sync_args(args);
-        
-        return (result < 0) ? EXIT_FAILURE : EXIT_SUCCESS;
     }
+    
+    // Update global args for signal handler
+    sync_args(args);
+    
+    // Execute the command
+    int result = execute_command(args, arg_count);
+    
+    // Free allocated memory
+    free_args(args);
+    sync_args(args);
+    
+    return (result < 0) ? EXIT_FAILURE : EXIT_SUCCESS;
 }

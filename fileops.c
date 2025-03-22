@@ -208,7 +208,7 @@ int append_to_file(const char *filename, const char *content) {
         // Child process
         
         // Open file for writing (append mode)
-        int fd = open(filename, O_WRONLY | O_APPEND);
+        int fd = open(filename, O_RDWR | O_APPEND);
         if (fd == -1) {
             char error_msg[256];
             int len = string_format(error_msg, sizeof(error_msg), 
@@ -239,6 +239,26 @@ int append_to_file(const char *filename, const char *content) {
                 close(fd);
                 _exit(EXIT_FAILURE);
             }
+        }
+        
+        // Check if file is empty or if the last character is a newline
+        struct stat st;
+        fstat(fd, &st);
+        
+        // If file is not empty, check if we need to add a newline
+        if (st.st_size > 0) {
+            char last_char;
+            if (lseek(fd, -1, SEEK_END) >= 0) {
+                if (read(fd, &last_char, 1) == 1) {
+                    // If the last character is not a newline, add one
+                    if (last_char != '\n') {
+                        const char newline = '\n';
+                        write(fd, &newline, 1);
+                    }
+                }
+            }
+            // Move back to end of file
+            lseek(fd, 0, SEEK_END);
         }
         
         // Write content to file
